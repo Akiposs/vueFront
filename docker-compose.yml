@@ -1,0 +1,35 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    volumes:
+      # アクセスログ・エラーログを外部に保存する
+      - ./logs/nginx:/var/log/nginx
+      # 設定ファイルを外部に保存する
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      # Laravelプロジェクトと繋ぐ
+      - ./vue_portfolio:/var/www/vue_portfolio
+    ports:
+      - 58730:80
+    networks:
+      - akipon_app_front_network
+    depends_on:
+      # Vueの後に処理を実行しはじめる
+      - vue
+    tty: true
+
+  vue:
+    build:
+      context: .
+      dockerfile: ./vue/Dockerfile
+    volumes:
+      - ./vue_portfolio:/var/www/vue_portfolio
+    networks:
+      - akipon_app_front_network
+    tty: true
+
+
+networks:
+  akipon_app_front_network:

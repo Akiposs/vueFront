@@ -28,6 +28,8 @@ services:
       - ./vue_portfolio:/var/www/vue_portfolio
     networks:
       - akipon_app_front_network
+    ports:
+      - 58731:8080
     tty: true
 
 

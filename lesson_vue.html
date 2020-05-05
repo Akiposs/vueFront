@@ -1,0 +1,222 @@
+<div id="app">
+  <p>
+    {{ message }}
+  </p>
+  <p>
+    {{ count }}
+  </p>
+  <p>
+    {{ user.prefecture }}
+  </p>
+  <p>
+    {{ colors[1] }}
+  </p>
+</div>
+<script 
+src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+</script>
+
+
+
+<script>
+new Vue({
+  el: "#app",
+  data:{
+  	message:'Hello vuejs!',
+    count:0,
+    user:{
+      lastName:'Takano',
+      firstName:'Akihiro',
+      prefecture:'Tokyo'
+    },
+    colors:['red','blue','yellow']
+  }
+})
+</script>
+
+
+
+<p v-if="toggle">
+</p>
+<script>
+data:{
+  toggle:false
+}
+</script>
+
+
+<div id="app">
+  <ul>
+    <li v-for="value in user">{{ value }}</li>
+  </ul>
+  <hr>  
+  <ul>
+  <li v-for="(v, k) in user">
+  {{k}} : {{v}}
+  </li>
+  </ul>
+</div>
+<script 
+src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+</script>
+
+new Vue({
+  el: "#app",
+  data:{
+  	user:{
+ 			fistName:"Akihiro",
+      lastName:"Takano",
+      Age:25
+    }
+  }
+})
+
+
+
+<div id="app">
+  <button v-on:click="test">Click!</button>
+  {{ now }}
+  </div>
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+
+new Vue({
+  el: "#app",
+  data:{
+		now:""
+  },
+  methods:{
+  	test:function(){
+    	this.now = new Date().toLocaleString();
+    }
+  }
+})
+
+
+
+
+
+
+
+
+<div id="app">
+  <h2>TODO List</h2>
+  <form v-on:submit.prevent>
+    <input type="text" v-model="newItem">
+    <button v-on:click="addItem">Add</button>
+  </form>
+  <ul>
+    <li v-for="(todo, index) in todos">
+      <input type="checkbox" v-model="todo.isDone">
+      <span v-bind:class="{ done: todo.isDone }">{{todo.item}}</span>
+      <button v-on:click="deleteItem(index)">Delete</button>
+    </li>
+  </ul>
+  {{$data}}
+  </div>
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+
+
+
+
+#app ul{
+  list-style: none;
+}
+#app li > span.done{
+  text-decoration: line-through
+}
+
+
+
+
+var app = new Vue({
+	el:"#app",
+  data:{
+  	newItem:"",
+    todos:[]
+  },
+  methods:{
+  	addItem:function(event){
+    if(this.newItem == '') return;
+			var todo ={
+      	item:this.newItem,
+        isDone:false
+      }
+      this.todos.push(todo);
+      this.newItem='';
+    },
+    deleteItem:function(index){
+    	this.todos.splice(index, 1);
+    }
+  }
+})
+
+
+
+
+
+
+
+
+<div id="app">
+  <h2>BitCoin List</h2>
+  
+  <section v-if="hasError">
+    Error
+  </section>
+  <section v-else>
+  <div v-if="loading">
+    Loading...
+  </div>
+  <div v-else>
+    <ul v-clock>
+      <li v-for="(rate, currency) in bpi">
+        {{ currency }} : {{ rate.rate_float | currencyDcimal }}
+      </li>
+  </ul>
+  </div>
+  </section>
+  </div>
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+  <script 
+    src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+  </script>
+
+
+[v-clock]{
+  display:none;
+}
+
+
+
+  var app = new Vue({
+    el:"#app",
+    data:{
+      bpi: null,
+      hasError:false,
+      loading:true
+    },
+    mounted: function(){
+      axios.get("https://api.coindesk.com/v1/bpi/currentprice.json").
+      then(function(response){
+            this.bpi = response.data.bpi
+      }.bind(this))
+      .catch(function(error){
+        console.log(error);
+      }.bind(this))    	
+      .finally(function(){
+        this.loading = false;
+      }.bind(this))
+    },
+    filters:{
+      currencyDcimal(value){
+        return value.toFixed(1);
+      }
+  }
+      
+  })

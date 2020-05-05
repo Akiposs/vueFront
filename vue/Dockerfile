@@ -14,5 +14,4 @@ CMD [ "/bin/sh" ]
 # npm run buildコマンドで更新のたびにビルドすること
 # vue add vuetifyコマンドでvuetifyを入れること
 
-
 # vuetify, vue router, vuexの使い方を学ぶ

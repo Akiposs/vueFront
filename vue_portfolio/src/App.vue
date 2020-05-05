@@ -38,7 +38,11 @@
     </v-app-bar>
 
     <v-content>
+
+
       <HelloWorld/>
+
+      
     </v-content>
   </v-app>
 </template>

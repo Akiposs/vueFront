@@ -220,3 +220,242 @@ var app = new Vue({
   }
       
   })
+
+
+
+  <div id="app">
+    <p>{{price | numberFormat}}</p>
+    </div>
+    
+    <script 
+    src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+    </script>
+
+
+
+var app = new Vue({
+	el:"#app",
+  data:{
+  	message:"Hello Vue.js!",
+		price:29800000
+  },
+  filters:{
+  	numberFormat: function(value){
+    	return value.toLocaleString()
+    }
+  }
+})
+
+
+
+
+
+Vue.filter("numberFormat2", function(value){
+	return value.toLocaleString();
+})
+
+var app = new Vue({
+	el:"#app",
+  data:{
+  	message:"Hello Vue.js!",
+		price:29800000
+  },
+  filters:{
+  	numberFormat: function(value){
+    	return value.toLocaleString()
+    }
+  }
+})
+
+
+
+
+
+<div id="app">
+  <p>{{jpyPrice | toUSD | numberFormat}}</p>
+  </div>
+  
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+  <script 
+    src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+  </script>
+
+
+
+
+Vue.filter('toUSD', function(jpy){
+	return jpy/100
+})
+
+var app = new Vue({
+	el:"#app",
+  data:{
+  	message:"Hello Vue.js!",
+		jpyPrice:29800000
+  },
+  filters:{
+		numberFormat:function(value){
+    	return value.toLocaleString();
+    }
+  }
+})
+
+
+
+
+<div id="app">
+  <p>{{text  | readMore(30, '...')}}</p>
+  </div>
+  
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+  <script 
+    src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+  </script>
+
+
+
+Vue.filter('readMore', function(text, length, suffix){
+	return text.substring(0,length) + suffix
+})
+
+var app = new Vue({
+	el:"#app",
+  data:{
+    text: 'バックスラッシュ、逆斜線、あるいはリバースソリダス は約物の一つで、「 \ 」と書き表される。
+    バックスラッシュとはスラッシュ の逆という意味である。「 / 」に比べれば、自然言語ではあまり使われることのない記号である。
+     バックスラッシュと円記号 の問題については、円記号も参照のことバックスラッシュ、逆斜線、あるいはリバースソリダス は約物の一つで、
+     「 \ 」と書き表される。バックスラッシュとはスラッシュ の逆という意味である。「 / 」に比べれば、自然言語ではあまり使われることのない記号である。
+      バックスラッシュと円記号 の問題については、円記号も参照のことバックスラッシュ、逆斜線、あるいはリバースソリダス は約物の一つで、
+      「 \ 」と書き表される。バックスラッシュとはスラッシュ の逆という意味である。「 / 」に比べれば、自然言語ではあまり使われることのない記号である。
+       バックスラッシュと円記号 の問題については、円記号も参照のこと'
+  }
+})
+
+
+
+
+
+<div id="app">
+  <p>{{reversedMesssage}}</p>
+  
+  </div>
+  
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+  <script 
+    src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+  </script>
+
+
+
+
+var app = new Vue({
+	el:"#app",
+  data:{
+		message:"Hello Vue.js!"
+  },
+  computed:{
+  	reversedMesssage: function(){
+    	return this.message.split('').reverse().join('');
+    }
+  }
+})
+
+
+
+
+
+
+
+
+
+<div id="app">
+  <p>baseprice: <input type="text" v-model="basePrice"></p>
+  <p>tax included price: <input type="text" v-model="taxIncludedPrice"></p>
+  {{$data}}
+  </div>
+  
+  <script 
+  src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  </script>
+  <script 
+    src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+  </script>
+
+
+
+
+var app = new Vue({
+	el:"#app",
+  data:{
+		basePrice:100
+  },
+	computed:{
+  	taxIncludedPrice: {
+    	get:function(){
+    		return parseInt(this.basePrice * 1.08)
+    	},
+    	set:function(taxIncludedPrice){
+    		this.basePrice = Math.ceil(taxIncludedPrice / 1.08)
+    	}
+  	}	
+	}
+})
+
+
+
+
+<div id="app">
+  <p>
+    <input type="text" v-model:value="km">km
+  </p>
+    <p>
+    <input type="text" v-model:value="m">m
+  </p>
+    <p>
+    <input type="text" v-model:value="mm">mm
+  </p>
+
+  {{$data}}
+</div>
+<script
+src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+</script>
+<script 
+  src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js">
+</script>
+
+
+var app = new Vue({
+	el:"#app",
+  data:{
+  	km:0,
+    m:0,
+    mm:0
+  },
+  watch:{
+  	km:function(value){
+    	this.km = value;
+      this.m = value * 1000;
+      this.mm = value * 1000000;
+    },
+    m:function(value){
+      this.km = value / 1000;
+      this.m = value;
+      this.mm = value * 1000;
+  	},
+    mm:function(value){
+      this.km = value / 1000000;
+      this.m = value / 1000;
+      this.mm = value;
+  	}
+  }
+})
